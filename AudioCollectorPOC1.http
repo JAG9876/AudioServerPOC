@@ -1,0 +1,10 @@
+@AudioCollectorPOC1_HostAddress = http://localhost:5144
+
+GET {{AudioCollectorPOC1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+POST {{AudioCollectorPOC1_HostAddress}}api/audio/
+Accept: application/json
+
+###
