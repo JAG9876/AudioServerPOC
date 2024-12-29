@@ -19,7 +19,7 @@ namespace AudioCollectorPOC1
 
             IAudioRepository _audioRepository = new AudioRepository();
             builder.Services.AddSingleton(_audioRepository);
-            //builder.Services.AddScoped<IAudioRepository, AudioRepository>();
+            builder.Services.AddScoped<IAudioService, AudioService>();
 
             var app = builder.Build();
 

@@ -7,12 +7,11 @@ namespace AudioCollectorPOC1.Controllers
     //[Route("api/v1/[controller]")]
     public class AudioController : ControllerBase
     {
-        private readonly IAudioRepository _audioRepository;
+        private readonly IAudioService _audioService;
 
-
-        public AudioController(IAudioRepository audioRepository)
+        public AudioController(IAudioService audioService)
         {
-            _audioRepository = audioRepository;
+            _audioService = audioService;
         }
 
         [HttpPost]
@@ -24,14 +23,9 @@ namespace AudioCollectorPOC1.Controllers
                 return BadRequest("Invalid audio recording.");
             }
 
-            var entity = new AudioRecordingEntity
-            {
-                DeviceId = recording.DeviceId,
-                ReadTime = recording.ReadTime,
-                AudioBuffer = recording.AudioBuffer
-            };
-            _audioRepository.AddRecording(entity);
-            var msg = $"Audio recording ({_audioRepository.GetRecordingCount()}) received successfully. Id={entity.Id}.";
+            string recordingId = _audioService.AddRecording(recording);
+
+            var msg = $"Audio recording ({_audioService.GetRecordingCount()}) received successfully. Id={recordingId}.";
             Console.WriteLine(msg);
 
             return Ok(msg);

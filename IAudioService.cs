@@ -2,7 +2,7 @@
 {
     public interface IAudioService
     {
-        void AddRecording(AudioRecordingEntity recording);
+        string AddRecording(AudioRecordingDto recording);
         void SetLifetimeInMs(int lifetimeInMs);
         int GetRecordingCount();
     }
