@@ -14,6 +14,13 @@ namespace AudioCollectorPOC1.Controllers
             _audioService = audioService;
         }
 
+        //[HttpGet]
+        //public IActionResult PostAudio()
+        //{
+        //    Console.WriteLine("Test987");
+        //    return Ok("Success");
+        //}
+
         [HttpPost]
         //public async Task<IActionResult> PostAudio([FromBody] AudioRecording recording)
         public IActionResult PostAudio([FromBody] AudioRecordingDto recording)

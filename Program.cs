@@ -7,6 +7,32 @@ namespace AudioCollectorPOC1
     {
         public static void Main(string[] args)
         {
+            IHost host = CreateHostBuilder(args).Build();
+            host.Run();
+        }
+
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<StartUp>();
+                    //webBuilder.ConfigureServices(services =>
+                    //{
+                    //    services.AddControllers();
+                    //    services.AddEndpointsApiExplorer();
+                    //    services.AddSwaggerGen();
+
+                    //    IAudioRepository audioRepository = new AudioRepository();
+                    //    services.AddSingleton(audioRepository);
+                    //    services.AddScoped<IAudioService, AudioService>();
+                    //});
+                });
+        }
+
+        /*
+        public static void Main(string[] args)
+        {
             var builder = WebApplication.CreateBuilder(args);
 
 
@@ -45,5 +71,6 @@ namespace AudioCollectorPOC1
 
             app.Run();
         }
+        */
     }
 }
