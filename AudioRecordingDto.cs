@@ -11,6 +11,8 @@
         /// Number of milliseconds since midnight 1970_01_01 (UTC)
         /// </summary>
         public long ReadTime { get; set; }
+        public bool RequestedByServer { get; set; }
+        public int BufferIndex { get; set; }
 
         // Assumes all recordings are in mono channel, 16 bit PCM, at 44100 Hz sample rate.
         public short[] AudioBuffer { get; set; } = [];
