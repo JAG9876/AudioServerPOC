@@ -4,13 +4,14 @@ namespace AudioCollectorPOC1.Controllers
 {
     [ApiController]
     [Route("/api/v1/[controller]/[action]")]
-    //[Route("api/v1/[controller]")]
     public class AudioController : ControllerBase
     {
         private readonly IAudioService _audioService;
+        private readonly IConfiguration _config;
 
-        public AudioController(IAudioService audioService)
+        public AudioController(IConfiguration config, IAudioService audioService)
         {
+            _config = config;
             _audioService = audioService;
         }
 
@@ -27,8 +28,11 @@ namespace AudioCollectorPOC1.Controllers
 
             var firstValue = recording.AudioBuffer.First();
             var lastValue = recording.AudioBuffer.Last();
-            var msg = $"Audio recording (deviceId={recording.DeviceId}, idx={recording.BufferIndex}, {_audioService.GetRecordingCount()}) received successfully. Id={recordingId}. {firstValue}-{lastValue}";
+            var msg = $"Audio recording (deviceId={recording.DeviceId}, idx={recording.BufferIndex}, recording count={_audioService.GetRecordingCount()}) received successfully. Id={recordingId}. {firstValue}-{lastValue}";
             Console.WriteLine(msg);
+
+            var delay = _config.GetValue("AppSettings:AudioProcessingDelayMs", 0);
+            Thread.Sleep(delay); // Simulate audio processing delay.
 
             return Ok(msg); // TODO: Check if the device should send more audio, then return with a TimeRangeDto.
         }
@@ -48,7 +52,6 @@ namespace AudioCollectorPOC1.Controllers
             var timeRange = new TimeRangeDto { StartTime = 0, EndTime = 0 };
             if (true)
             {
-                // Get Unix time in milliseconds.
                 var currentTimeMs = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Milliseconds;
 
                 // Retrieve audio from between 30 and 25 seconds ago.

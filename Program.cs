@@ -1,12 +1,11 @@
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace AudioCollectorPOC1
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            //ThreadPool.GetMinThreads(out int workerThreads, out int completionPortThreads); // Aspire 3 => 8,1
+            //ThreadPool.SetMaxThreads(workerThreads, completionPortThreads);
             IHost host = CreateHostBuilder(args).Build();
             host.Run();
         }
@@ -17,60 +16,7 @@ namespace AudioCollectorPOC1
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<StartUp>();
-                    //webBuilder.ConfigureServices(services =>
-                    //{
-                    //    services.AddControllers();
-                    //    services.AddEndpointsApiExplorer();
-                    //    services.AddSwaggerGen();
-
-                    //    IAudioRepository audioRepository = new AudioRepository();
-                    //    services.AddSingleton(audioRepository);
-                    //    services.AddScoped<IAudioService, AudioService>();
-                    //});
                 });
         }
-
-        /*
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            IAudioRepository _audioRepository = new AudioRepository();
-            builder.Services.AddSingleton(_audioRepository);
-            builder.Services.AddScoped<IAudioService, AudioService>();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-
-                app.UseDeveloperExceptionPage();
-            }
-
-            //app.UseHttpsRedirection();
-            //app.UseAuthorization();
-
-            //app.UseRouting();
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
-
-            app.MapControllers();
-
-            app.Run();
-        }
-        */
     }
 }
