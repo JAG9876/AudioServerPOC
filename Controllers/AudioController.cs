@@ -31,8 +31,8 @@ namespace AudioCollectorPOC1.Controllers
             var msg = $"Audio recording (deviceId={recording.DeviceId}, idx={recording.BufferIndex}, recording count={_audioService.GetRecordingCount()}) received successfully. Id={recordingId}. {firstValue}-{lastValue}";
             Console.WriteLine(msg);
 
-            var delay = _config.GetValue("AppSettings:AudioProcessingDelayMs", 0);
-            Thread.Sleep(delay); // Simulate audio processing delay.
+            //var delay = _config.GetValue("AppSettings:AudioProcessingDelayMs", 0);
+            //Thread.Sleep(delay); // Simulate audio processing delay.
 
             return Ok(msg); // TODO: Check if the device should send more audio, then return with a TimeRangeDto.
         }
